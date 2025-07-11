@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Causes | HopeForAll NGO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c7be5;
+            --secondary: #00d97e;
+            --dark: #12263f;
+            --light: #f9fbfd;
+            --gray: #95aac9;
+            --transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .donate-btn {
+            background-color: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-left: 30px;
+        }
+        
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 217, 126, 0.3);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Page Header */
+        .page-header {
+            height: 400px;
+            background: linear-gradient(rgba(44, 123, 229, 0.8), rgba(44, 123, 229, 0.8)), url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .page-header-content {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            font-size: 0.9rem;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .breadcrumb li {
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .breadcrumb li:after {
+            content: '/';
+            position: absolute;
+            right: -15px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .breadcrumb li:last-child:after {
+            display: none;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+        }
+        
+        .breadcrumb a:hover {
+            color: white;
+        }
+        
+        /* Causes Filter */
+        .causes-filter {
+            padding: 60px 0 30px;
+            background-color: white;
+        }
+        
+        .filter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            background-color: var(--light);
+            color: var(--dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.3);
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.1);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        /* Causes Grid */
+        .causes-section {
+            padding: 60px 0;
+            background-color: var(--light);
+        }
+        
+        .causes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .cause-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
+        
+        .cause-item.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .cause-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cause-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .cause-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .cause-item:hover .cause-img img {
+            transform: scale(1.1);
+        }
+        
+        .cause-category {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .cause-content {
+            padding: 25px;
+        }
+        
+        .cause-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .cause-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .cause-stats {
+            margin-bottom: 25px;
+        }
+        
+        .progress-container {
+            margin-bottom: 10px;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+        
+        .cause-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .raised {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .goal {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .cause-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--light);
+            color: var(--primary);
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .cause-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.3);
+        }
+        
+        /* Impact Section */
+        .impact-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(44, 123, 229, 0.9), rgba(44, 123, 229, 0.9)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+        }
+        
+        .impact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .impact-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .impact-container p {
+            margin-bottom: 50px;
+            opacity: 0.9;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .impact-stat {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .impact-stat.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .impact-stat:nth-child(1) { transition-delay: 0.1s; }
+        .impact-stat:nth-child(2) { transition-delay: 0.2s; }
+        .impact-stat:nth-child(3) { transition-delay: 0.3s; }
+        .impact-stat:nth-child(4) { transition-delay: 0.4s; }
+        
+        .impact-stat:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .impact-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .impact-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background-color: white;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .cta-container p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .cta-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.3);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-col p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .causes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .donate-btn {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+            
+            .page-header {
+                height: 350px;
+                margin-top: 70px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-btns {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-header {
+                height: 300px;
+            }
+            
+            .impact-stat {
+                padding: 20px;
+            }
+            
+            .impact-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>HopeForAll</span>
+                </a>
+                
+                <div class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="causes.html" class="active">Causes</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#" class="donate-btn">Donate Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Our Causes & Campaigns</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li>Our Causes</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Causes Filter -->
+    <section class="causes-filter">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Causes</button>
+                    <button class="filter-btn" data-filter="education">Education</button>
+                    <button class="filter-btn" data-filter="health">Health</button>
+                    <button class="filter-btn" data-filter="water">Clean Water</button>
+                    <button class="filter-btn" data-filter="hunger">Hunger Relief</button>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search causes...">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Causes Grid -->
+    <section class="causes-section">
+        <div class="container">
+            <div class="causes-grid" id="causesGrid">
+                <div class="cause-item" data-category="education">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Education for All">
+                        <span class="cause-category">Education</span>
+                    </div>
+                    <div class="cause-content">
+                        <h3>Education for All</h3>
+                        <p>Building schools and providing scholarships for children in underserved communities to access quality education.</p>
+                        
+                        <div class="cause-stats">
+                            <div class="progress-container">
+                                <div class="progress-text">
+                                    <span>75% Funded</span>
+                                    <span>$42,500</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="75"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="cause-meta">
+                                <span class="goal">Goal: $56,000</span>
+                                <a href="#" class="cause-btn">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cause-item" data-category="health">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Healthcare Access">
+                        <span class="cause-category">Health</span>
+                    </div>
+                    <div class="cause-content">
+                        <h3>Healthcare Access</h3>
+                        <p>Providing medical supplies, training local healthcare workers, and establishing clinics in remote areas.</p>
+                        
+                        <div class="cause-stats">
+                            <div class="progress-container">
+                                <div class="progress-text">
+                                    <span>62% Funded</span>
+                                    <span>$37,200</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="62"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="cause-meta">
+                                <span class="goal">Goal: $60,000</span>
+                                <a href="#" class="cause-btn">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cause-item" data-category="water">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Clean Water Initiative">
+                        <span class="cause-category">Clean Water</span>
+                    </div>
+                    <div class="cause-content">
+                        <h3>Clean Water Initiative</h3>
+                        <p>Installing wells and water purification systems to provide clean drinking water to communities in need.</p>
+                        
+                        <div class="cause-stats">
+                            <div class="progress-container">
+                                <div class="progress-text">
+                                    <span>47% Funded</span>
+                                    <span>$28,300</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="47"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="cause-meta">
+                                <span class="goal">Goal: $60,000</span>
+                                <a href="#" class="cause-btn">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cause-item" data-category="hunger">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Hunger Relief">
+                        <span class="cause-category">Hunger Relief</span>
+                    </div>
+                    <div class="cause-content">
+                        <h3>Hunger Relief</h3>
+                        <p>Providing nutritious meals to families affected by poverty, conflict, and natural disasters worldwide.</p>
+                        
+                        <div class="cause-stats">
+                            <div class="progress-container">
+                                <div class="progress-text">
+                                    <span>82% Funded</span>
+                                    <span>$65,800</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="82"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="cause-meta">
+                                <span class="goal">Goal: $80,000</span>
+                                <a href="#" class="cause-btn">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cause-item" data-category="education">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Digital Literacy">
+                        <span class="cause-category">Education</span>
+                    </div>
+                    <div class="cause-content">
+                        <h3>Digital Literacy</h3>
+                        <p>Equipping schools with technology and training teachers to prepare students for the digital age.</p>
+                        
+                        <div class="cause-stats">
+                            <div class="progress-container">
+                                <div class="progress-text">
+                                    <span>35% Funded</span>
+                                    <span>$17,500</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="35"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="cause-meta">
+                                <span class="goal">Goal: $50,000</span>
+                                <a href="#" class="cause-btn">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cause-item" data-category="health">
+                    <div class="cause-img">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Maternal Health">
+                        <span class="cause-category">Health</span>
+                    </div>
+                    <div class="cause-content">
+                        <h3>Maternal Health</h3>
+                        <p>Improving healthcare for mothers and newborns in regions with high maternal mortality rates.</p>
+                        
+                        <div class="cause-stats">
+                            <div class="progress-container">
+                                <div class="progress-text">
+                                    <span>58% Funded</span>
+                                    <span>$29,000</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-width="58"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="cause-meta">
+                                <span class="goal">Goal: $50,000</span>
+                                <a href="#" class="cause-btn">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact-section">
+        <div class="container">
+            <div class="impact-container">
+                <h2>Our Global Impact</h2>
+                <p>Through the generous support of donors like you, we've been able to make a measurable difference in communities around the world.</p>
+                
+                <div class="impact-stats" id="impactStats">
+                    <div class="impact-stat">
+                        <div class="impact-number" data-count="12500">0</div>
+                        <div class="impact-text">People Helped Annually</div>
+                    </div>
+                    <div class="impact-stat">
+                        <div class="impact-number" data-count="36">0</div>
+                        <div class="impact-text">Countries Reached</div>
+                    </div>
+                    <div class="impact-stat">
+                        <div class="impact-number" data-count="245">0</div>
+                        <div class="impact-text">Projects Completed</div>
+                    </div>
+                    <div class="impact-stat">
+                        <div class="impact-number" data-count="85">0</div>
+                        <div class="impact-text">Dedicated Staff</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-container">
+                <h2>Ready to Make a Difference?</h2>
+                <p>Your support can transform lives. Whether you choose to donate, fundraise, or volunteer, you'll be part of creating lasting change in communities around the world.</p>
+                <div class="cta-btns">
+                    <a href="#" class="btn btn-primary">Donate Now</a>
+                    <a href="contact.html" class="btn btn-outline">Become a Volunteer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>About Us</h3>
+                    <p>HopeForAll is a global nonprofit organization dedicated to creating lasting change in the lives of children, families, and communities.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="causes.html">Our Causes</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Our Causes</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Education for All</a></li>
+                        <li><a href="#">Clean Water</a></li>
+                        <li><a href="#">Hunger Relief</a></li>
+                        <li><a href="#">Healthcare</a></li>
+                        <li><a href="#">Disaster Relief</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Charity St, Hope City, HC 12345</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@hopeforall.org</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 HopeForAll. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Causes Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const causeItems = document.querySelectorAll('.cause-item');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                causeItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Search Functionality
+        const searchInput = document.querySelector('.search-box input');
+        
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            causeItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const description = item.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        
+        // Animate Causes on Scroll
+        function animateCauses() {
+            const causesGrid = document.getElementById('causesGrid');
+            const causes = document.querySelectorAll('.cause-item');
+            
+            const gridPosition = causesGrid.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (gridPosition < screenPosition) {
+                causes.forEach((cause, index) => {
+                    setTimeout(() => {
+                        cause.classList.add('animate');
+                        
+                        // Animate progress bars
+                        const progressFill = cause.querySelector('.progress-fill');
+                        const width = progressFill.getAttribute('data-width');
+                        progressFill.style.width = width + '%';
+                    }, index * 150);
+                });
+            }
+        }
+        
+        // Animate Impact Stats
+        function animateImpactStats() {
+            const impactStats = document.getElementById('impactStats');
+            const stats = document.querySelectorAll('.impact-stat');
+            const statNumbers = document.querySelectorAll('.impact-number');
+            
+            const statsPosition = impactStats.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (statsPosition < screenPosition) {
+                stats.forEach(stat => {
+                    stat.classList.add('animate');
+                });
+                
+                statNumbers.forEach(number => {
+                    const target = parseInt(number.getAttribute('data-count'));
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    let current = 0;
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            clearInterval(timer);
+                            current = target;
+                        }
+                        number.textContent = Math.floor(current).toLocaleString();
+                    }, 16);
+                });
+            }
+        }
+        
+        // Initialize animations on load and scroll
+        window.addEventListener('load', () => {
+            animateCauses();
+            animateImpactStats();
+        });
+        
+        window.addEventListener('scroll', () => {
+            animateCauses();
+            animateImpactStats();
+        });
+        
+        // Parallax effect for cause images on hover
+        causeItems.forEach(item => {
+            const img = item.querySelector('.cause-img');
+            
+            item.addEventListener('mousemove', (e) => {
+                const x = e.clientX - item.getBoundingClientRect().left;
+                const y = e.clientY - item.getBoundingClientRect().top;
+                
+                const centerX = item.offsetWidth / 2;
+                const centerY = item.offsetHeight / 2;
+                
+                const moveX = (x - centerX) / 20;
+                const moveY = (y - centerY) / 20;
+                
+                img.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                img.style.transform = 'translate(0, 0) scale(1)';
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
