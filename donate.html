@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate | HopeForAll NGO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+    <style>
+        :root {
+            --primary: #2c7be5;
+            --secondary: #00d97e;
+            --dark: #12263f;
+            --light: #f9fbfd;
+            --gray: #95aac9;
+            --transition: all 0.3s ease-in-out;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .donate-btn {
+            background-color: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-left: 30px;
+        }
+        
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 217, 126, 0.3);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Page Header */
+        .page-header {
+            height: 400px;
+            background: linear-gradient(rgba(44, 123, 229, 0.8), rgba(44, 123, 229, 0.8)), url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .page-header-content {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            font-size: 0.9rem;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .breadcrumb li {
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .breadcrumb li:after {
+            content: '/';
+            position: absolute;
+            right: -15px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .breadcrumb li:last-child:after {
+            display: none;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+        }
+        
+        .breadcrumb a:hover {
+            color: white;
+        }
+        
+        /* Donation Section */
+        .donation-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .donation-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .donation-info {
+            padding-right: 30px;
+        }
+        
+        .donation-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .donation-info h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .donation-info p {
+            margin-bottom: 30px;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        
+        .impact-stats {
+            margin-bottom: 40px;
+        }
+        
+        .impact-stat {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(44, 123, 229, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        
+        .stat-text h4 {
+            font-size: 1rem;
+            margin-bottom: 3px;
+            color: var(--dark);
+        }
+        
+        .stat-text p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+        
+        /* Donation Options */
+        .donation-options {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .donation-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .amount-option {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .amount-option:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.1);
+        }
+        
+        .amount-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(44, 123, 229, 0.05);
+            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.1);
+        }
+        
+        .amount-option h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .amount-option p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .custom-amount {
+            margin-bottom: 25px;
+        }
+        
+        .custom-amount label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .custom-amount input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .custom-amount input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 123, 229, 0.2);
+            outline: none;
+        }
+        
+        .donation-frequency {
+            margin-bottom: 30px;
+        }
+        
+        .frequency-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .frequency-option {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .frequency-option input {
+            display: none;
+        }
+        
+        .frequency-option label {
+            display: block;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .frequency-option input:checked + label {
+            border-color: var(--primary);
+            background-color: rgba(44, 123, 229, 0.05);
+            color: var(--primary);
+        }
+        
+        .frequency-option label:hover {
+            border-color: var(--primary);
+        }
+        
+        /* PayPal Button Container */
+        #paypal-button-container {
+            margin-top: 30px;
+        }
+        
+        /* Other Ways to Donate */
+        .other-methods {
+            margin-top: 40px;
+        }
+        
+        .other-methods h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .other-methods h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .method-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 217, 126, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+        
+        .method-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .method-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-col p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .donation-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .donation-info {
+                padding-right: 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .amount-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .donate-btn {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+            
+            .page-header {
+                height: 350px;
+                margin-top: 70px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .frequency-options {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-header {
+                height: 300px;
+            }
+            
+            .amount-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .donation-options {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>HopeForAll</span>
+                </a>
+                
+                <div class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="causes.html">Causes</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="donate.html" class="donate-btn active">Donate Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Support Our Cause</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li>Donate</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section class="donation-section">
+        <div class="container">
+            <div class="donation-container">
+                <div class="donation-info">
+                    <h2>Your Donation Makes a Difference</h2>
+                    <p>Every contribution helps us continue our mission to create positive change in communities around the world. Your support provides education, healthcare, and hope to those in need.</p>
+                    
+                    <div class="impact-stats">
+                        <div class="impact-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stat-text">
+                                <h4>Education</h4>
+                                <p>$50 can provide school supplies for 5 children</p>
+                            </div>
+                        </div>
+                        
+                        <div class="impact-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-medkit"></i>
+                            </div>
+                            <div class="stat-text">
+                                <h4>Healthcare</h4>
+                                <p>$100 can provide medical care for 10 people</p>
+                            </div>
+                        </div>
+                        
+                        <div class="impact-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="stat-text">
+                                <h4>Clean Water</h4>
+                                <p>$250 can help build a well for a community</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="other-methods">
+                        <h3>Other Ways to Donate</h3>
+                        
+                        <div class="method">
+                            <div class="method-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="method-info">
+                                <h4>Mobile Money</h4>
+                                <p>Send to: +256 XXX XXX XXX (HopeForAll)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="method">
+                            <div class="method-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="method-info">
+                                <h4>Bank Transfer</h4>
+                                <p>Account: 123456789, Bank of Uganda</p>
+                            </div>
+                        </div>
+                        
+                        <div class="method">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="method-info">
+                                <h4>Check Donation</h4>
+                                <p>Mail to: 123 Charity St, Hope City, Uganda</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="donation-options">
+                    <div class="donation-tabs">
+                        <button class="tab-btn active" data-tab="one-time">One-Time</button>
+                        <button class="tab-btn" data-tab="monthly">Monthly</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="one-time-tab">
+                        <h3>One-Time Donation</h3>
+                        <p>Make a single donation to support our current initiatives</p>
+                        
+                        <div class="amount-options">
+                            <div class="amount-option" data-amount="25">
+                                <h3>$25</h3>
+                                <p>Provides meals for 5 children</p>
+                            </div>
+                            <div class="amount-option" data-amount="50">
+                                <h3>$50</h3>
+                                <p>School supplies for 5 children</p>
+                            </div>
+                            <div class="amount-option selected" data-amount="100">
+                                <h3>$100</h3>
+                                <p>Medical care for 10 people</p>
+                            </div>
+                            <div class="amount-option" data-amount="250">
+                                <h3>$250</h3>
+                                <p>Help build a community well</p>
+                            </div>
+                            <div class="amount-option" data-amount="500">
+                                <h3>$500</h3>
+                                <p>Support a classroom for a month</p>
+                            </div>
+                            <div class="amount-option" data-amount="1000">
+                                <h3>$1000</h3>
+                                <p>Transform an entire community</p>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-amount">
+                            <label for="custom-amount">Or enter a custom amount (USD)</label>
+                            <input type="number" id="custom-amount" placeholder="Other amount">
+                        </div>
+                        
+                        <div id="paypal-button-container"></div>
+                    </div>
+                    
+                    <div class="tab-content" id="monthly-tab">
+                        <h3>Monthly Donation</h3>
+                        <p>Become a sustaining donor with automatic monthly contributions</p>
+                        
+                        <div class="amount-options">
+                            <div class="amount-option" data-amount="10">
+                                <h3>$10/mo</h3>
+                                <p>Provides meals monthly</p>
+                            </div>
+                            <div class="amount-option selected" data-amount="25">
+                                <h3>$25/mo</h3>
+                                <p>Supports a child's education</p>
+                            </div>
+                            <div class="amount-option" data-amount="50">
+                                <h3>$50/mo</h3>
+                                <p>Funds healthcare services</p>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-amount">
+                            <label for="monthly-custom-amount">Or enter a custom amount (USD)</label>
+                            <input type="number" id="monthly-custom-amount" placeholder="Other amount">
+                        </div>
+                        
+                        <div class="donation-frequency">
+                            <label>Donation Frequency</label>
+                            <div class="frequency-options">
+                                <div class="frequency-option">
+                                    <input type="radio" id="monthly" name="frequency" value="monthly" checked>
+                                    <label for="monthly">Monthly</label>
+                                </div>
+                                <div class="frequency-option">
+                                    <input type="radio" id="quarterly" name="frequency" value="quarterly">
+                                    <label for="quarterly">Quarterly</label>
+                                </div>
+                                <div class="frequency-option">
+                                    <input type="radio" id="yearly" name="frequency" value="yearly">
+                                    <label for="yearly">Yearly</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="paypal-subscription-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>About Us</h3>
+                    <p>HopeForAll is a global nonprofit organization dedicated to creating lasting change in the lives of children, families, and communities.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="causes.html">Our Causes</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Our Causes</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Education for All</a></li>
+                        <li><a href="#">Clean Water</a></li>
+                        <li><a href="#">Hunger Relief</a></li>
+                        <li><a href="#">Healthcare</a></li>
+                        <li><a href="#">Disaster Relief</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Charity St, Hope City, HC 12345</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@hopeforall.org</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 HopeForAll. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Tab Switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+        
+        // Amount Selection
+        const amountOptions = document.querySelectorAll('.amount-option');
+        
+        amountOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options in this group
+                this.parentElement.querySelectorAll('.amount-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Update the amount for PayPal button
+                updatePayPalButton();
+            });
+        });
+        
+        // Custom Amount Input
+        const customAmountInput = document.getElementById('custom-amount');
+        const monthlyCustomAmountInput = document.getElementById('monthly-custom-amount');
+        
+        customAmountInput.addEventListener('input', function() {
+            if (this.value) {
+                // Remove selected class from all options
+                document.querySelectorAll('#one-time-tab .amount-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                updatePayPalButton();
+            }
+        });
+        
+        monthlyCustomAmountInput.addEventListener('input', function() {
+            if (this.value) {
+                // Remove selected class from all options
+                document.querySelectorAll('#monthly-tab .amount-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                updatePayPalButton();
+            }
+        });
+        
+        // Get Selected Amount
+        function getSelectedAmount() {
+            const activeTab = document.querySelector('.tab-content.active').id;
+            
+            if (activeTab === 'one-time-tab') {
+                const selectedOption = document.querySelector('#one-time-tab .amount-option.selected');
+                if (selectedOption) {
+                    return selectedOption.getAttribute('data-amount');
+                } else if (customAmountInput.value) {
+                    return customAmountInput.value;
+                }
+            } else if (activeTab === 'monthly-tab') {
+                const selectedOption = document.querySelector('#monthly-tab .amount-option.selected');
+                if (selectedOption) {
+                    return selectedOption.getAttribute('data-amount');
+                } else if (monthlyCustomAmountInput.value) {
+                    return monthlyCustomAmountInput.value;
+                }
+            }
+            
+            return '100'; // Default amount
+        }
+        
+        // PayPal Button Implementation
+        let paypalButton;
+        let paypalSubscriptionButton;
+        
+        function updatePayPalButton() {
+            const amount = getSelectedAmount();
+            const isMonthly = document.querySelector('.tab-content.active').id === 'monthly-tab';
+            
+            if (isMonthly) {
+                // For monthly donations, we'll use PayPal subscriptions
+                // Note: Subscriptions require additional setup in PayPal
+                paypalSubscriptionButton.render('#paypal-subscription-container');
+            } else {
+                // For one-time donations
+                paypalButton.render('#paypal-button-container');
+            }
+        }
+        
+        // Initialize PayPal Buttons
+        function initPayPalButtons() {
+            // One-time donation button
+            paypalButton = paypal.Buttons({
+                createOrder: function(data, actions) {
+                    const amount = getSelectedAmount();
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: amount,
+                                breakdown: {
+                                    item_total: {
+                                        value: amount,
+                                        currency_code: 'USD'
+                                    }
+                                }
+                            },
+                            items: [{
+                                name: 'Donation to HopeForAll',
+                                description: 'Thank you for supporting our cause',
+                                quantity: '1',
+                                unit_amount: {
+                                    value: amount,
+                                    currency_code: 'USD'
+                                },
+                                category: 'DONATION'
+                            }]
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        // Show success message
+                        alert('Thank you for your donation! A receipt has been sent to your email.');
+                        
+                        // You can also send this data to your server
+                        console.log('Transaction completed by ' + details.payer.name.given_name);
+                    });
+                },
+                onError: function(err) {
+                    console.error('PayPal error:', err);
+                    alert('There was an error processing your donation. Please try again.');
+                },
+                style: {
+                    layout: 'vertical',
+                    color: 'blue',
+                    shape: 'rect',
+                    label: 'donate',
+                    height: 55
+                }
+            });
+            
+            // Monthly subscription button
+            // Note: This requires additional setup in PayPal to create subscription plans
+            paypalSubscriptionButton = paypal.Buttons({
+                createSubscription: function(data, actions) {
+                    const amount = getSelectedAmount();
+                    return actions.subscription.create({
+                        plan_id: 'YOUR_PLAN_ID' // Replace with your actual plan ID
+                    });
+                },
+                onApprove: function(data, actions) {
+                    alert('Thank you for becoming a monthly donor!');
+                    console.log('Subscription approved:', data.subscriptionID);
+                },
+                onError: function(err) {
+                    console.error('PayPal subscription error:', err);
+                    alert('There was an error setting up your subscription. Please try again.');
+                },
+                style: {
+                    layout: 'vertical',
+                    color: 'blue',
+                    shape: 'rect',
+                    label: 'subscribe',
+                    height: 55
+                }
+            });
+            
+            // Render initial button
+            updatePayPalButton();
+        }
+        
+        // Initialize PayPal buttons when script loads
+        if (paypal) {
+            initPayPalButtons();
+        } else {
+            console.error('PayPal SDK not loaded');
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
