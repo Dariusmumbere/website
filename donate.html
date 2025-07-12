@@ -8,12 +8,21 @@
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
     <style>
         :root {
-            --primary: #2c7be5;
-            --secondary: #00d97e;
-            --dark: #12263f;
-            --light: #f9fbfd;
-            --gray: #95aac9;
-            --transition: all 0.3s ease-in-out;
+            --primary: #4361ee;
+            --primary-light: #3a86ff;
+            --secondary: #4cc9f0;
+            --accent: #f72585;
+            --dark: #14213d;
+            --darker: #0a1128;
+            --light: #f8f9fa;
+            --lighter: #ffffff;
+            --gray: #adb5bd;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.15), 0 10px 10px rgba(0,0,0,0.05);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
         
         * {
@@ -23,23 +32,25 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
         
         a {
             text-decoration: none;
             color: inherit;
+            transition: var(--transition);
         }
         
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
         
         /* Header Styles */
@@ -49,21 +60,21 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
             transition: var(--transition);
         }
         
         header.scrolled {
-            background-color: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-md);
         }
         
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 18px 0;
         }
         
         .logo {
@@ -72,96 +83,138 @@
             color: var(--primary);
             display: flex;
             align-items: center;
+            gap: 10px;
         }
         
-        .logo i {
-            margin-right: 10px;
-            color: var(--secondary);
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--gradient);
+            border-radius: 8px;
+            color: white;
         }
         
         .nav-links {
             display: flex;
             list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-            position: relative;
+            gap: 8px;
         }
         
         .nav-links a {
             font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
             transition: var(--transition);
         }
         
-        .nav-links a:hover:after {
-            width: 100%;
+        .nav-links a:hover {
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
         }
         
         .nav-links a.active {
             color: var(--primary);
             font-weight: 600;
-        }
-        
-        .nav-links a.active:after {
-            width: 100%;
+            background: rgba(67, 97, 238, 0.1);
         }
         
         .donate-btn {
-            background-color: var(--secondary);
+            background: var(--gradient);
             color: white;
             padding: 10px 20px;
-            border-radius: 30px;
+            border-radius: 8px;
             font-weight: 600;
             transition: var(--transition);
-            margin-left: 30px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            margin-left: 16px;
         }
         
         .donate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 217, 126, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
         }
         
         .mobile-menu-btn {
             display: none;
             font-size: 24px;
             cursor: pointer;
+            color: var(--dark);
+            background: none;
+            border: none;
         }
         
         /* Page Header */
         .page-header {
-            height: 400px;
-            background: linear-gradient(rgba(44, 123, 229, 0.8), rgba(44, 123, 229, 0.8)), url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            height: 480px;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9) 0%, rgba(76, 201, 240, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
             display: flex;
             align-items: center;
             text-align: center;
             color: white;
             margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, var(--light));
+            z-index: 1;
         }
         
         .page-header-content {
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
         }
         
         .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease-out;
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.8s ease-out;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .campaign-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+        
+        .campaign-link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.4);
+            background-color: #f51780;
         }
         
         .breadcrumb {
@@ -169,8 +222,9 @@
             justify-content: center;
             list-style: none;
             font-size: 0.9rem;
-            animation: fadeInUp 1s ease-out 0.2s forwards;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
             opacity: 0;
+            margin-bottom: 32px;
         }
         
         .breadcrumb li {
@@ -191,7 +245,6 @@
         
         .breadcrumb a {
             color: rgba(255, 255, 255, 0.8);
-            transition: var(--transition);
         }
         
         .breadcrumb a:hover {
@@ -204,32 +257,51 @@
             background-color: white;
         }
         
+        .section-title {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: var(--darker);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
         .donation-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            gap: 40px;
         }
         
         .donation-info {
-            padding-right: 30px;
+            padding-right: 20px;
         }
         
-        .donation-info h2 {
-            font-size: 2.5rem;
+        .donation-info h3 {
+            font-size: 1.8rem;
             margin-bottom: 20px;
-            color: var(--dark);
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .donation-info h2:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--darker);
         }
         
         .donation-info p {
@@ -240,66 +312,84 @@
         
         .impact-stats {
             margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
         
         .impact-stat {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+            background: var(--lighter);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        
+        .impact-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
         
         .stat-icon {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(44, 123, 229, 0.1);
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            color: var(--primary);
-            font-size: 1rem;
+            margin-bottom: 16px;
+            color: white;
+            font-size: 1.2rem;
         }
         
         .stat-text h4 {
-            font-size: 1rem;
-            margin-bottom: 3px;
-            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--darker);
         }
         
         .stat-text p {
             margin-bottom: 0;
             font-size: 0.9rem;
+            color: var(--gray);
         }
         
         /* Donation Options */
         .donation-options {
-            background-color: var(--light);
+            background-color: var(--lighter);
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 100px;
         }
         
         .donation-tabs {
             display: flex;
             margin-bottom: 30px;
-            border-bottom: 1px solid #ddd;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 12px;
+            padding: 6px;
         }
         
         .tab-btn {
-            padding: 10px 20px;
+            flex: 1;
+            padding: 12px;
             background: none;
             border: none;
-            border-bottom: 3px solid transparent;
+            border-radius: 8px;
             font-weight: 600;
             color: var(--gray);
             cursor: pointer;
             transition: var(--transition);
+            text-align: center;
         }
         
         .tab-btn.active {
             color: var(--primary);
-            border-bottom-color: var(--primary);
+            background: white;
+            box-shadow: var(--shadow-sm);
         }
         
         .tab-content {
@@ -310,18 +400,29 @@
             display: block;
         }
         
+        .tab-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--darker);
+        }
+        
+        .tab-content p {
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+        
         .amount-options {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 24px;
         }
         
         .amount-option {
             background-color: white;
-            border: 1px solid #ddd;
+            border: 1px solid #e9ecef;
             border-radius: 8px;
-            padding: 15px;
+            padding: 16px 12px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
@@ -329,49 +430,65 @@
         
         .amount-option:hover {
             border-color: var(--primary);
-            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.1);
+            box-shadow: var(--shadow-sm);
         }
         
         .amount-option.selected {
             border-color: var(--primary);
-            background-color: rgba(44, 123, 229, 0.05);
-            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.1);
+            background-color: rgba(67, 97, 238, 0.05);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
         }
         
         .amount-option h3 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: var(--primary);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         
         .amount-option p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--gray);
+            margin-bottom: 0;
         }
         
         .custom-amount {
-            margin-bottom: 25px;
+            margin-bottom: 24px;
         }
         
         .custom-amount label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: var(--dark);
+            color: var(--darker);
+        }
+        
+        .custom-amount .input-group {
+            position: relative;
+            display: flex;
+        }
+        
+        .custom-amount .input-group span {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-weight: 500;
         }
         
         .custom-amount input {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
+            padding: 12px 16px 12px 40px;
+            border: 1px solid #e9ecef;
             border-radius: 8px;
             font-size: 1rem;
             transition: var(--transition);
+            font-weight: 500;
         }
         
         .custom-amount input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(44, 123, 229, 0.2);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
             outline: none;
         }
         
@@ -381,13 +498,12 @@
         
         .frequency-options {
             display: flex;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 12px;
         }
         
         .frequency-option {
             flex: 1;
-            text-align: center;
         }
         
         .frequency-option input {
@@ -396,16 +512,18 @@
         
         .frequency-option label {
             display: block;
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 12px;
+            border: 1px solid #e9ecef;
             border-radius: 8px;
             cursor: pointer;
             transition: var(--transition);
+            text-align: center;
+            font-weight: 500;
         }
         
         .frequency-option input:checked + label {
             border-color: var(--primary);
-            background-color: rgba(44, 123, 229, 0.05);
+            background-color: rgba(67, 97, 238, 0.05);
             color: var(--primary);
         }
         
@@ -415,20 +533,20 @@
         
         /* PayPal Button Container */
         #paypal-button-container {
-            margin-top: 30px;
+            margin-top: 24px;
         }
         
         /* Other Ways to Donate */
         .other-methods {
-            margin-top: 40px;
+            margin-top: 48px;
         }
         
         .other-methods h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--dark);
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            color: var(--darker);
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
         }
         
         .other-methods h3:after {
@@ -437,47 +555,244 @@
             bottom: 0;
             left: 0;
             width: 50px;
-            height: 2px;
-            background-color: var(--secondary);
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
         
         .method {
+            background-color: var(--lighter);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
-            padding: 15px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .method:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
         
         .method-icon {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(0, 217, 126, 0.1);
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #4cc9f0 100%);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            color: var(--secondary);
-            font-size: 1rem;
+            margin-right: 16px;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
         }
         
         .method-info h4 {
-            font-size: 1rem;
-            margin-bottom: 5px;
-            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: var(--darker);
         }
         
         .method-info p {
             font-size: 0.9rem;
             color: var(--gray);
+            margin-bottom: 0;
+        }
+        
+        /* Testimonials */
+        .testimonials-section {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .testimonial-card .quote {
+            font-size: 1.1rem;
+            color: var(--darker);
+            margin-bottom: 20px;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .testimonial-card .quote:before {
+            content: '"';
+            font-size: 3rem;
+            color: rgba(67, 97, 238, 0.1);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: var(--darker);
+        }
+        
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 0;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 16px;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--darker);
+        }
+        
+        .faq-question:after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .faq-item.active .faq-question:after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
         }
         
         /* Footer */
         footer {
-            background-color: var(--dark);
+            background-color: var(--darker);
             color: white;
             padding: 80px 0 30px;
         }
@@ -503,7 +818,7 @@
             left: 0;
             width: 50px;
             height: 2px;
-            background-color: var(--secondary);
+            background: var(--secondary);
         }
         
         .footer-col p {
@@ -516,22 +831,23 @@
         }
         
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .footer-links a {
             color: var(--gray);
             transition: var(--transition);
+            display: inline-block;
         }
         
         .footer-links a:hover {
             color: white;
-            padding-left: 5px;
+            transform: translateX(5px);
         }
         
         .social-links {
             display: flex;
-            gap: 15px;
+            gap: 16px;
         }
         
         .social-links a {
@@ -547,7 +863,7 @@
         }
         
         .social-links a:hover {
-            background-color: var(--secondary);
+            background: var(--gradient);
             transform: translateY(-3px);
         }
         
@@ -581,21 +897,24 @@
         }
         
         /* Responsive Styles */
-        @media (max-width: 992px) {
+        @media (max-width: 1024px) {
             .donation-container {
                 grid-template-columns: 1fr;
+                gap: 60px;
             }
             
             .donation-info {
                 padding-right: 0;
             }
             
-            .page-header h1 {
-                font-size: 2.5rem;
+            .donation-options {
+                position: static;
+                max-width: 600px;
+                margin: 0 auto;
             }
             
-            .amount-options {
-                grid-template-columns: repeat(2, 1fr);
+            .page-header h1 {
+                font-size: 3rem;
             }
         }
         
@@ -613,8 +932,9 @@
                 background-color: white;
                 flex-direction: column;
                 align-items: center;
-                padding-top: 40px;
+                padding: 40px 24px;
                 transition: var(--transition);
+                box-shadow: var(--shadow-lg);
             }
             
             .nav-links.active {
@@ -622,39 +942,65 @@
             }
             
             .nav-links li {
-                margin: 15px 0;
+                margin: 8px 0;
             }
             
             .donate-btn {
                 margin-left: 0;
-                margin-top: 20px;
+                margin-top: 16px;
             }
             
             .page-header {
-                height: 350px;
+                height: 420px;
                 margin-top: 70px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .impact-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-header {
+                height: 380px;
             }
             
             .page-header h1 {
                 font-size: 2rem;
             }
             
-            .frequency-options {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .page-header {
-                height: 300px;
+            .page-header p {
+                font-size: 1.1rem;
             }
             
             .amount-options {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
             
             .donation-options {
                 padding: 30px 20px;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
         }
     </style>
@@ -665,19 +1011,22 @@
         <div class="container">
             <nav class="navbar">
                 <a href="index.html" class="logo">
-                    <i class="fas fa-hands-helping"></i>
+                    <div class="logo-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
                     <span>HopeForAll</span>
                 </a>
                 
-                <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
                     <i class="fas fa-bars"></i>
-                </div>
+                </button>
                 
                 <ul class="nav-links" id="navLinks">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="causes.html">Causes</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="donate.html" class="donate-btn active">Donate Now</a></li>
                 </ul>
@@ -688,7 +1037,13 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="page-header-content">
-            <h1>Support Our Cause</h1>
+            <h1>Empower Change With Your Support</h1>
+            <p>Your generous donation helps us transform lives and create sustainable impact in communities worldwide.</p>
+            
+            <a href="https://your-campaign-link-here.com" class="campaign-link-btn" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Visit Our Campaign Page
+            </a>
+            
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a></li>
                 <li>Donate</li>
@@ -699,10 +1054,15 @@
     <!-- Donation Section -->
     <section class="donation-section">
         <div class="container">
+            <div class="section-title">
+                <h2>Make a Difference Today</h2>
+                <p>Choose how you'd like to contribute to our mission of creating positive change in the world.</p>
+            </div>
+            
             <div class="donation-container">
                 <div class="donation-info">
-                    <h2>Your Donation Makes a Difference</h2>
-                    <p>Every contribution helps us continue our mission to create positive change in communities around the world. Your support provides education, healthcare, and hope to those in need.</p>
+                    <h3>Your Impact Matters</h3>
+                    <p>Every dollar you donate goes directly toward funding our programs that provide education, healthcare, clean water, and economic opportunities to those in need. With your support, we can continue to expand our reach and create lasting change.</p>
                     
                     <div class="impact-stats">
                         <div class="impact-stat">
@@ -711,7 +1071,7 @@
                             </div>
                             <div class="stat-text">
                                 <h4>Education</h4>
-                                <p>$50 can provide school supplies for 5 children</p>
+                                <p>$50 provides school supplies for 5 children for a full year</p>
                             </div>
                         </div>
                         
@@ -721,7 +1081,7 @@
                             </div>
                             <div class="stat-text">
                                 <h4>Healthcare</h4>
-                                <p>$100 can provide medical care for 10 people</p>
+                                <p>$100 covers medical care for 10 people at our clinics</p>
                             </div>
                         </div>
                         
@@ -731,41 +1091,63 @@
                             </div>
                             <div class="stat-text">
                                 <h4>Clean Water</h4>
-                                <p>$250 can help build a well for a community</p>
+                                <p>$250 helps build a well serving an entire community</p>
+                            </div>
+                        </div>
+                        
+                        <div class="impact-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="stat-text">
+                                <h4>Shelter</h4>
+                                <p>$500 provides emergency housing for a displaced family</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="other-methods">
-                        <h3>Other Ways to Donate</h3>
+                        <h3>Other Ways to Support</h3>
                         
-                        <div class="method">
-                            <div class="method-icon">
-                                <i class="fas fa-mobile-alt"></i>
+                        <div class="methods-grid">
+                            <div class="method">
+                                <div class="method-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h4>Mobile Money</h4>
+                                    <p>Send to: +256 XXX XXX XXX (HopeForAll)</p>
+                                </div>
                             </div>
-                            <div class="method-info">
-                                <h4>Mobile Money</h4>
-                                <p>Send to: +256 XXX XXX XXX (HopeForAll)</p>
+                            
+                            <div class="method">
+                                <div class="method-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h4>Bank Transfer</h4>
+                                    <p>Account: 123456789, Bank of Uganda</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="method">
-                            <div class="method-icon">
-                                <i class="fas fa-university"></i>
+                            
+                            <div class="method">
+                                <div class="method-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h4>Check Donation</h4>
+                                    <p>Mail to: 123 Charity St, Hope City, Uganda</p>
+                                </div>
                             </div>
-                            <div class="method-info">
-                                <h4>Bank Transfer</h4>
-                                <p>Account: 123456789, Bank of Uganda</p>
-                            </div>
-                        </div>
-                        
-                        <div class="method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="method-info">
-                                <h4>Check Donation</h4>
-                                <p>Mail to: 123 Charity St, Hope City, Uganda</p>
+                            
+                            <div class="method">
+                                <div class="method-icon">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h4>Corporate Giving</h4>
+                                    <p>Partner with us for larger impact</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -810,7 +1192,10 @@
                         
                         <div class="custom-amount">
                             <label for="custom-amount">Or enter a custom amount (USD)</label>
-                            <input type="number" id="custom-amount" placeholder="Other amount">
+                            <div class="input-group">
+                                <span>$</span>
+                                <input type="number" id="custom-amount" placeholder="Other amount">
+                            </div>
                         </div>
                         
                         <div id="paypal-button-container"></div>
@@ -833,11 +1218,18 @@
                                 <h3>$50/mo</h3>
                                 <p>Funds healthcare services</p>
                             </div>
+                            <div class="amount-option" data-amount="100">
+                                <h3>$100/mo</h3>
+                                <p>Sustains a clean water project</p>
+                            </div>
                         </div>
                         
                         <div class="custom-amount">
                             <label for="monthly-custom-amount">Or enter a custom amount (USD)</label>
-                            <input type="number" id="monthly-custom-amount" placeholder="Other amount">
+                            <div class="input-group">
+                                <span>$</span>
+                                <input type="number" id="monthly-custom-amount" placeholder="Other amount">
+                            </div>
                         </div>
                         
                         <div class="donation-frequency">
@@ -865,13 +1257,122 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Donor Stories</h2>
+                <p>Hear from people who have supported our mission and the impact they've helped create</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="quote">"I've been donating monthly for 3 years and seeing the progress reports makes me proud to be part of this organization's work."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah J." class="author-avatar">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Monthly Donor since 2020</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="quote">"After seeing the impact of my one-time donation, I decided to sponsor a child's education. The updates I receive show me exactly how my money is helping."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="author-avatar">
+                        <div class="author-info">
+                            <h4>Michael Thompson</h4>
+                            <p>Education Sponsor</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="quote">"Our company matched employee donations and together we funded a clean water project. The transparency and results from HopeForAll were outstanding."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Lisa M." class="author-avatar">
+                        <div class="author-info">
+                            <h4>Lisa Martinez</h4>
+                            <p>Corporate Partner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about donating to HopeForAll</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">How will my donation be used?</div>
+                    <div class="faq-answer">
+                        <p>Your donation will be used to fund our programs in education, healthcare, clean water, and economic development. We allocate at least 85% of all donations directly to program services, with the remaining 15% supporting essential operational costs like staff, fundraising, and administration.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is my donation tax-deductible?</div>
+                    <div class="faq-answer">
+                        <p>Yes, HopeForAll is a registered 501(c)(3) nonprofit organization in the United States, and all donations are tax-deductible to the extent allowed by law. You will receive a receipt for your donation that you can use for tax purposes.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I donate in honor or memory of someone?</div>
+                    <div class="faq-answer">
+                        <p>Absolutely! During the donation process, you'll have the option to make your gift in honor or memory of someone special. We can also send a notification to the person or family you're honoring (without disclosing the donation amount).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I update my monthly donation?</div>
+                    <div class="faq-answer">
+                        <p>You can update your monthly donation at any time by contacting our donor support team at donors@hopeforall.org or by calling +1 (555) 123-4567. Please have your donor ID or the email address associated with your donation ready.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What payment methods do you accept?</div>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, bank transfers, and checks. For large donations, we can also accept stock transfers and other assets - please contact us for more information.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Make an Impact?</h2>
+            <p>Join thousands of donors who are creating lasting change in communities around the world. Every contribution, no matter the size, makes a difference.</p>
+            
+            <div class="cta-buttons">
+                <a href="#donation-options" class="btn btn-primary">
+                    <i class="fas fa-donate"></i> Donate Now
+                </a>
+                <a href="https://your-campaign-link-here.com" class="btn btn-outline" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Visit Campaign
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <h3>About Us</h3>
-                    <p>HopeForAll is a global nonprofit organization dedicated to creating lasting change in the lives of children, families, and communities.</p>
+                    <h3>About HopeForAll</h3>
+                    <p>We are a global nonprofit organization dedicated to creating lasting change in the lives of children, families, and communities through sustainable development programs.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -888,31 +1389,34 @@
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="causes.html">Our Causes</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="blog.html">Blog</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Our Causes</h3>
+                    <h3>Our Programs</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Education for All</a></li>
-                        <li><a href="#">Clean Water</a></li>
-                        <li><a href="#">Hunger Relief</a></li>
-                        <li><a href="#">Healthcare</a></li>
-                        <li><a href="#">Disaster Relief</a></li>
+                        <li><a href="#">Education Initiatives</a></li>
+                        <li><a href="#">Clean Water Projects</a></li>
+                        <li><a href="#">Healthcare Services</a></li>
+                        <li><a href="#">Economic Empowerment</a></li>
+                        <li><a href="#">Disaster Response</a></li>
+                        <li><a href="#">Community Development</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Contact Info</h3>
+                    <h3>Contact Us</h3>
                     <p><i class="fas fa-map-marker-alt"></i> 123 Charity St, Hope City, HC 12345</p>
                     <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
                     <p><i class="fas fa-envelope"></i> info@hopeforall.org</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 5PM EST</p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 HopeForAll. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p>&copy; 2023 HopeForAll. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Financial Reports</a></p>
             </div>
         </div>
     </footer>
@@ -954,6 +1458,9 @@
                 // Add active class to clicked button and corresponding content
                 btn.classList.add('active');
                 document.getElementById(`${tabId}-tab`).classList.add('active');
+                
+                // Update PayPal button
+                updatePayPalButton();
             });
         });
         
@@ -970,6 +1477,11 @@
                 // Add selected class to clicked option
                 this.classList.add('selected');
                 
+                // Clear any custom amount input in this tab
+                const tab = this.closest('.tab-content');
+                const customInput = tab.querySelector('input[type="number"]');
+                if (customInput) customInput.value = '';
+                
                 // Update the amount for PayPal button
                 updatePayPalButton();
             });
@@ -979,26 +1491,24 @@
         const customAmountInput = document.getElementById('custom-amount');
         const monthlyCustomAmountInput = document.getElementById('monthly-custom-amount');
         
-        customAmountInput.addEventListener('input', function() {
-            if (this.value) {
-                // Remove selected class from all options
-                document.querySelectorAll('#one-time-tab .amount-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                updatePayPalButton();
-            }
+        [customAmountInput, monthlyCustomAmountInput].forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value) {
+                    // Remove selected class from all options in this tab
+                    const tab = this.closest('.tab-content');
+                    tab.querySelectorAll('.amount-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    updatePayPalButton();
+                }
+            });
         });
         
-        monthlyCustomAmountInput.addEventListener('input', function() {
-            if (this.value) {
-                // Remove selected class from all options
-                document.querySelectorAll('#monthly-tab .amount-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                updatePayPalButton();
-            }
+        // Frequency Selection
+        const frequencyOptions = document.querySelectorAll('.frequency-option input');
+        frequencyOptions.forEach(option => {
+            option.addEventListener('change', updatePayPalButton);
         });
         
         // Get Selected Amount
@@ -1021,7 +1531,13 @@
                 }
             }
             
-            return '100'; // Default amount
+            return '25'; // Default amount
+        }
+        
+        // Get Selected Frequency
+        function getSelectedFrequency() {
+            const selectedFrequency = document.querySelector('.frequency-option input:checked');
+            return selectedFrequency ? selectedFrequency.value : 'monthly';
         }
         
         // PayPal Button Implementation
@@ -1036,9 +1552,11 @@
                 // For monthly donations, we'll use PayPal subscriptions
                 // Note: Subscriptions require additional setup in PayPal
                 paypalSubscriptionButton.render('#paypal-subscription-container');
+                document.getElementById('paypal-button-container').innerHTML = '';
             } else {
                 // For one-time donations
                 paypalButton.render('#paypal-button-container');
+                document.getElementById('paypal-subscription-container').innerHTML = '';
             }
         }
         
@@ -1069,13 +1587,16 @@
                                 },
                                 category: 'DONATION'
                             }]
-                        }]
+                        }],
+                        application_context: {
+                            shipping_preference: 'NO_SHIPPING'
+                        }
                     });
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(details) {
                         // Show success message
-                        alert('Thank you for your donation! A receipt has been sent to your email.');
+                        showAlert('success', 'Thank you for your donation! A receipt has been sent to your email.');
                         
                         // You can also send this data to your server
                         console.log('Transaction completed by ' + details.payer.name.given_name);
@@ -1083,14 +1604,15 @@
                 },
                 onError: function(err) {
                     console.error('PayPal error:', err);
-                    alert('There was an error processing your donation. Please try again.');
+                    showAlert('error', 'There was an error processing your donation. Please try again.');
                 },
                 style: {
                     layout: 'vertical',
                     color: 'blue',
                     shape: 'rect',
                     label: 'donate',
-                    height: 55
+                    height: 55,
+                    tagline: false
                 }
             });
             
@@ -1099,24 +1621,36 @@
             paypalSubscriptionButton = paypal.Buttons({
                 createSubscription: function(data, actions) {
                     const amount = getSelectedAmount();
+                    const frequency = getSelectedFrequency();
+                    
+                    // In a real implementation, you would have different plan IDs for different frequencies/amounts
+                    let planId = 'YOUR_BASIC_PLAN_ID'; // Replace with your actual plan ID
+                    
+                    // This is simplified - in production you would map amounts/frequencies to specific plan IDs
+                    if (frequency === 'quarterly') planId = 'YOUR_QUARTERLY_PLAN_ID';
+                    if (frequency === 'yearly') planId = 'YOUR_YEARLY_PLAN_ID';
+                    
                     return actions.subscription.create({
-                        plan_id: 'YOUR_PLAN_ID' // Replace with your actual plan ID
+                        plan_id: planId
                     });
                 },
                 onApprove: function(data, actions) {
-                    alert('Thank you for becoming a monthly donor!');
+                    showAlert('success', 'Thank you for becoming a monthly donor! You will receive a confirmation email shortly.');
                     console.log('Subscription approved:', data.subscriptionID);
+                    
+                    // Here you would typically send this data to your server
                 },
                 onError: function(err) {
                     console.error('PayPal subscription error:', err);
-                    alert('There was an error setting up your subscription. Please try again.');
+                    showAlert('error', 'There was an error setting up your subscription. Please try again.');
                 },
                 style: {
                     layout: 'vertical',
                     color: 'blue',
                     shape: 'rect',
                     label: 'subscribe',
-                    height: 55
+                    height: 55,
+                    tagline: false
                 }
             });
             
@@ -1124,12 +1658,52 @@
             updatePayPalButton();
         }
         
+        // Show alert message
+        function showAlert(type, message) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.position = 'fixed';
+            alert.style.bottom = '20px';
+            alert.style.right = '20px';
+            alert.style.padding = '16px 24px';
+            alert.style.borderRadius = '8px';
+            alert.style.color = 'white';
+            alert.style.backgroundColor = type === 'success' ? '#4BB543' : '#FF3333';
+            alert.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            alert.style.zIndex = '9999';
+            alert.style.animation = 'fadeIn 0.3s ease-out';
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => alert.remove(), 300);
+            }, 5000);
+        }
+        
         // Initialize PayPal buttons when script loads
-        if (paypal) {
+        if (typeof paypal !== 'undefined') {
             initPayPalButtons();
         } else {
             console.error('PayPal SDK not loaded');
         }
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
         
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1142,7 +1716,7 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                 }
