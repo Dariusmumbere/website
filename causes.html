@@ -617,6 +617,82 @@
             font-size: 0.9rem;
         }
         
+        /* Fundraiser Banner */
+        .fundraiser {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #0b6e4f 0%, #00a862 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .fundraiser .fund-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+        }
+
+        .fundraiser h2 {
+            font-size: 2.4rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .fundraiser p {
+            max-width: 780px;
+            margin: 0 auto 12px;
+            font-size: 1.15rem;
+            opacity: 0.95;
+        }
+
+        .fund-goal {
+            font-weight: 600;
+            margin-bottom: 30px !important;
+        }
+
+        .fund-btn {
+            display: inline-block;
+            background-color: #ffd23f;
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 800;
+            padding: 20px 56px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .fund-btn i {
+            margin-right: 10px;
+            color: #d6336c;
+        }
+
+        .fund-btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            background-color: #ffe066;
+        }
+
+        .fund-note {
+            margin-top: 22px !important;
+            font-size: 0.9rem !important;
+            opacity: 0.85 !important;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 210, 63, 0.7), 0 8px 25px rgba(0, 0, 0, 0.25); }
+            70% { box-shadow: 0 0 0 22px rgba(255, 210, 63, 0), 0 8px 25px rgba(0, 0, 0, 0.25); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 210, 63, 0), 0 8px 25px rgba(0, 0, 0, 0.25); }
+        }
+
+        @media (max-width: 576px) {
+            .fundraiser h2 { font-size: 1.7rem; }
+            .fund-btn { font-size: 1.2rem; padding: 16px 30px; width: 100%; }
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -759,6 +835,18 @@
                 <li><a href="index.html">Home</a></li>
                 <li>Our Causes</li>
             </ul>
+        </div>
+    </section>
+
+    <!-- Fundraiser Banner -->
+    <section class="fundraiser" id="fundraiser">
+        <div class="container">
+            <span class="fund-badge"><i class="fas fa-hand-holding-heart"></i> Fundraising Campaign</span>
+            <h2>Help Us Grow a Community Vegetable Garden in Kasese</h2>
+            <p>SeedMoney in the USA is running a fundraising campaign for the <strong>Ndongo United Herbalists Community Vegetable Garden</strong>. Please support our work by donating through the campaign page.</p>
+            <p class="fund-goal">Campaign goal: $1,000</p>
+            <a href="https://givebutter.com/ndongo-united-herbalists-community-vegetable-garden-2026" class="fund-btn" target="_blank" rel="noopener noreferrer"><i class="fas fa-heart"></i> Donate Now</a>
+            <p class="fund-note">Secure donation page hosted by SeedMoney on Givebutter.</p>
         </div>
     </section>
 
