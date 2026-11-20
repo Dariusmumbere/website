@@ -606,6 +606,95 @@
             font-size: 0.9rem;
         }
         
+        /* Donation / Tree Nursery Section */
+        .donation {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .donation-badge {
+            display: inline-block;
+            background-color: rgba(0, 217, 126, 0.12);
+            color: #00a862;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 16px;
+            border-radius: 30px;
+            margin-bottom: 15px;
+        }
+
+        .donation-text {
+            max-width: 850px;
+            margin: 0 auto 40px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .donation-text p + p {
+            margin-top: 15px;
+        }
+
+        .donation-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .highlight {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .highlight:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight i {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 12px;
+        }
+
+        .highlight h4 {
+            margin-bottom: 6px;
+            font-size: 1.05rem;
+        }
+
+        .highlight p {
+            color: var(--gray);
+            font-size: 0.92rem;
+        }
+
+        .donation-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .donation-gallery .photo {
+            height: 240px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .donation-gallery .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .donation-gallery .photo:hover img {
+            transform: scale(1.08);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -743,6 +832,7 @@
                     <li><a href="about.html">About</a></li>
                     <li><a href="causes.html">Causes</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="resources.html">Resources</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="donate.html" class="donate-btn">Donate Now</a></li>
                 </ul>
@@ -884,6 +974,52 @@ Ndongo has trained 150 farmers to grow castor organically and provides them with
         </div>
     </section>
 
+    <!-- Donation / Tree Nursery Section -->
+    <section class="donation" id="tree-nursery">
+        <div class="container">
+            <div class="section-title">
+                <span class="donation-badge"><i class="fas fa-seedling"></i> New Support</span>
+                <h2>NUHA Tree Nursery Enterprise</h2>
+                <p>Thanks to a generous donation from The Giving Exchange (USA).</p>
+            </div>
+
+            <div class="donation-text">
+                <p>Ndongo United Herbalists Association has received a donation from <strong>The Giving Exchange (USA)</strong> to support the <strong>NUHA Tree Nursery Enterprise</strong> in Kasese district.</p>
+                <p>The enterprise will promote fruit trees, herbal trees and agroforestry trees for income, conservation of biodiversity, employment for the youth, and herbal medicine for community health.</p>
+            </div>
+
+            <div class="donation-highlights">
+                <div class="highlight">
+                    <i class="fas fa-coins"></i>
+                    <h4>Income</h4>
+                    <p>Fruit, herbal and agroforestry trees that earn money for households.</p>
+                </div>
+                <div class="highlight">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Biodiversity</h4>
+                    <p>Conserving the plant and tree species of the Rwenzori region.</p>
+                </div>
+                <div class="highlight">
+                    <i class="fas fa-users"></i>
+                    <h4>Youth Employment</h4>
+                    <p>Jobs and skills for young people through the nursery.</p>
+                </div>
+                <div class="highlight">
+                    <i class="fas fa-heart-pulse"></i>
+                    <h4>Community Health</h4>
+                    <p>Herbal trees that supply herbal medicine for the community.</p>
+                </div>
+            </div>
+
+            <div class="donation-gallery">
+                <div class="photo"><img src="p1.jpeg" data-base="p1" alt="NUHA tree nursery enterprise"></div>
+                <div class="photo"><img src="p2.jpeg" data-base="p2" alt="NUHA tree nursery seedlings"></div>
+                <div class="photo"><img src="p3.jpeg" data-base="p3" alt="NUHA tree nursery activities"></div>
+                <div class="photo"><img src="p4.jpg" data-base="p4" alt="NUHA tree nursery in Kasese"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonials Section -->
     <section class="testimonials">
         <div class="container">
@@ -984,6 +1120,7 @@ Ndongo has trained 150 farmers to grow castor organically and provides them with
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="causes.html">Our Causes</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="resources.html">Resources</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
@@ -1125,6 +1262,18 @@ Ndongo has trained 150 farmers to grow castor organically and provides them with
             currentSlide = (currentSlide + 1) % testimonialSlides.length;
             showSlide(currentSlide);
         }, 5000);
+        
+        // Image extension fallback (p1-p4 may be .jpeg, .jpg or .png)
+        document.querySelectorAll('img[data-base]').forEach(img => {
+            const exts = ['jpeg', 'jpg', 'png', 'JPG', 'JPEG', 'PNG'];
+            let i = exts.findIndex(e => img.getAttribute('src').endsWith('.' + e));
+            img.addEventListener('error', () => {
+                i++;
+                if (i < exts.length) {
+                    img.src = img.dataset.base + '.' + exts[i];
+                }
+            });
+        });
         
         // Initialize animations on page load if elements are already in view
         window.addEventListener('load', () => {
