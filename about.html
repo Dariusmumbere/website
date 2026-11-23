@@ -475,8 +475,8 @@
         
         .partners-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
             align-items: center;
         }
         
@@ -484,16 +484,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            filter: grayscale(100%);
-            opacity: 0.7;
+            height: 110px;
+            padding: 15px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
             transition: var(--transition);
-            height: 80px;
         }
         
         .partner-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.1);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
         }
         
         .partner-logo img {
