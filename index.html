@@ -379,6 +379,39 @@
             font-size: 0.9rem;
         }
         
+        /* Climate Video */
+        .climate-video {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+
+        .video-wrapper {
+            max-width: 900px;
+            margin: 0 auto 35px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            background-color: #000;
+        }
+
+        .video-wrapper video {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 560px;
+        }
+
+        .video-description {
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.05rem;
+        }
+
+        .video-description p + p {
+            margin-top: 15px;
+        }
+
         /* Testimonials */
         .testimonials {
             padding: 80px 0;
@@ -1105,6 +1138,30 @@ Ndongo has trained 150 farmers to grow castor organically and provides them with
                 <div class="photo"><img src="p2.jpeg" data-base="p2" alt="NUHA tree nursery seedlings"></div>
                 <div class="photo"><img src="p3.jpeg" data-base="p3" alt="NUHA tree nursery activities"></div>
                 <div class="photo"><img src="p4.jpeg" data-base="p4" alt="NUHA tree nursery in Kasese"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Climate Video Section -->
+    <section class="climate-video" id="climate">
+        <div class="container">
+            <div class="section-title">
+                <span class="donation-badge"><i class="fas fa-cloud-sun-rain"></i> Youth &amp; Climate</span>
+                <h2>Climate Change and Our Food Security</h2>
+                <p>Hear from a young farmer on the front line in the Rwenzori region.</p>
+            </div>
+
+            <div class="video-wrapper">
+                <video controls preload="metadata" playsinline>
+                    <source src="climate.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="video-description">
+                <p>In this video, Biira Suprise, an 18-year-old youth advocate and organic farmer with the Ndongo United Herbalists Association (NUHA) in Kasese District, shares how climate change&mdash;marked by prolonged droughts and unpredictable rainfall&mdash;directly impacts local food security and community health in the Rwenzori region.</p>
+                <p>Highlighting the vital role of youth in environmental conservation, she explains how tree planting, agroforestry (such as growing nutrient-rich avocado trees), and mulching help restore reliable rainfall, prevent soil erosion, enrich the soil, and secure sustainable harvests.</p>
+                <p>Supported by partners like KOFLEC and Organic Denmark, Biira calls for stronger government backing to empower young farmers in building climate-resilient communities.</p>
             </div>
         </div>
     </section>
